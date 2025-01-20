@@ -63,6 +63,8 @@ function mostrarTaula($resultats) {
         echo "<td>" . htmlspecialchars($res['ID']) . "</td>";
         echo "<td>" . htmlspecialchars($res['titol']) . "</td>";
         echo "<td>" . htmlspecialchars($res['cos']) . "</td>";
+        // Columna per al botó de compartir
+        echo "<td><a href='#'><img src='../Imatges/qr_icon.png' alt='Compartir' style='width:24px; height:24px;'></a></td>";
         echo "</tr>";
     }
 

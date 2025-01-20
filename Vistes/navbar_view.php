@@ -51,8 +51,10 @@ if (isset($_SESSION['usuari'])) {
     <ul class="dropdown-menu">
       <li><a class="dropdown-item" href="modificar_perfil.php">Modificar perfil</a></li>
       <?php if ($dadesUsuari['aut_social'] === 'no'): ?>
-      <li><a class="dropdown-item" href="modificar_contrasenya.php">Canvi de contrasenya</a></li>
+        <li><a class="dropdown-item" href="modificar_contrasenya.php">Canvi de contrasenya</a></li>
       <?php endif; ?>
+      <!-- Nova opció articles compartits -->
+      <li><a class="dropdown-item" href="#" id="shared-articles">Articles compartits</a></li>
       <li><hr class="dropdown-divider"></li>
       <input type="hidden" name="logout" value="1">
       <li><button class="dropdown-item" type="submit">Logout</button></li>
