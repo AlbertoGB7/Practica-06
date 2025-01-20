@@ -172,4 +172,60 @@ function obtenirArticlesPaginatsCercar($usuari_id, $offset, $articles_per_pagina
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
+// ARTICLES COMPARTITS:
+
+function obtenirArticlesCompartits($connexio) {
+    $sql = "SELECT ac.id, ac.titol, ac.cos, u.usuari
+            FROM articles_compartits ac
+            JOIN usuaris u ON ac.usuari_id = u.id";
+    $stmt = $connexio->query($sql);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function comprovarArticleCompartit($article_id, $connexio) {
+    $sql = "SELECT COUNT(*) FROM articles_compartits WHERE id = ?";
+    $stmt = $connexio->prepare($sql);
+    $stmt->execute([$article_id]);
+    return $stmt->fetchColumn() > 0;
+}
+
+function compartirArticle($article_id, $usuari_id, $connexio) {
+    // Obtener los datos del artículo original
+    $sql = "SELECT titol, cos FROM articles WHERE ID = ?";
+    $stmt = $connexio->prepare($sql);
+    $stmt->execute([$article_id]);
+    $article = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($article) {
+        // Insertar el artículo en la tabla de artículos compartidos
+        $sql = "INSERT INTO articles_compartits (article_id, usuari_id, titol, cos, data_compartit) VALUES (?, ?, ?, ?, NOW())";
+        $stmt = $connexio->prepare($sql);
+        return $stmt->execute([$article_id, $usuari_id, $article['titol'], $article['cos']]);
+    }
+
+    return false; // Si el artículo original no existe
+}
+
+
+function copiarArticle($article_id, $user_id, $connexio) {
+    // Obtenim les dades de l'article compartit
+    $sql = "SELECT titol, cos FROM articles_compartits WHERE id = ?";
+    $stmt = $connexio->prepare($sql);
+    $stmt->execute([$article_id]);
+    $article = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($article) {
+        $sql = "INSERT INTO articles (usuari_id, titol, cos) VALUES (?, ?, ?)";
+        $stmt = $connexio->prepare($sql);
+        $stmt->execute([$user_id, $article['titol'], $article['cos']]);
+    }
+}
+
+function verificarArticleCompartit($article_id, $connexio) {
+    $sql = "SELECT COUNT(*) FROM articles_compartits WHERE article_id = ?";
+    $stmt = $connexio->prepare($sql);
+    $stmt->execute([$article_id]);
+    return $stmt->fetchColumn() > 0; // Devuelve true si ya existe
+}
+
 ?>

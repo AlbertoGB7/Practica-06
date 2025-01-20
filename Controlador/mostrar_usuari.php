@@ -64,9 +64,12 @@ function mostrarTaula($resultats) {
         echo "<td>" . htmlspecialchars($res['titol']) . "</td>";
         echo "<td>" . htmlspecialchars($res['cos']) . "</td>";
         // Columna per al botó de compartir
-        echo "<td><a href='#'><img src='../Imatges/qr_icon.png' alt='Compartir' style='width:24px; height:24px;'></a></td>";
+        echo "<td><a href='../Controlador/controladorAjax.php?action=compartir_article&article_id=" . $res['ID'] . "'>
+                <img src='../Imatges/qr_icon.png' alt='Compartir' style='width:24px; height:24px;'>
+              </a></td>";
         echo "</tr>";
     }
+    
 
     echo "</table>";
     echo "</div>";
@@ -109,6 +112,17 @@ function mostrarPaginacio($pagina_actual, $total_pagines, $articles_per_pagina, 
 </head>
 <body>
     <p class="titol">Taula d'articles</p><br><br>
+
+    <?php
+        // Missatges d'èxit o error
+        if (isset($_SESSION['missatge_exit'])) {
+            echo "<p style='color: green; font-family: \"Calligraffitti\", cursive;'>" . ($_SESSION['missatge_exit']) . "</p>";
+            unset($_SESSION['missatge_exit']);
+        } elseif (isset($_SESSION['missatge'])) {
+            echo "<p style='color: red; font-family: \"Calligraffitti\", cursive;'>" . ($_SESSION['missatge']) . "</p>";
+            unset($_SESSION['missatge']);
+        }
+        ?>
 
             <!-- Barra de cerca -->
             <div class="search-container">
