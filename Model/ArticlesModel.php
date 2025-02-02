@@ -23,6 +23,13 @@ function eliminarArticle($id, $connexio) {
     return $delete->execute([$id]);
 }
 
+// Funció per eliminar un article de la taula "articles_compartits"
+function eliminarArticleCompartit($id, $connexio) {
+    $delete = $connexio->prepare('DELETE FROM articles_compartits WHERE id = ?');
+    return $delete->execute([$id]);
+}
+
+
 // insertar.php
 
 // Funció per verificar si l'article ja existeix
@@ -61,12 +68,12 @@ function obtenirTotalArticlesUsuari($usuari_id, $connexio) {
 }
 
 function obtenirArticlesPaginats($usuari_id, $offset, $articles_per_pagina, $connexio) {
-    $stmt = $connexio->prepare("SELECT * FROM articles WHERE usuari_id = :usuari_id LIMIT :offset, :articles_per_pagina");
+    $stmt = $connexio->prepare("SELECT ID, titol, cos, data FROM articles WHERE usuari_id = :usuari_id LIMIT :offset, :articles_per_pagina");
     $stmt->bindValue(':usuari_id', $usuari_id, PDO::PARAM_INT);
     $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
     $stmt->bindValue(':articles_per_pagina', $articles_per_pagina, PDO::PARAM_INT);
     $stmt->execute();
-    return $stmt->fetchAll();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
 // mostrar.php:
@@ -85,7 +92,7 @@ function obtenirArticlesPaginatsSU($offset, $articles_per_pagina, $connexio) {
     $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
     $stmt->bindValue(':articles_per_pagina', $articles_per_pagina, PDO::PARAM_INT);
     $stmt->execute();
-    return $stmt->fetchAll();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC); // Usar FETCH_ASSOC
 }
 
 // ORDENAR:
@@ -175,12 +182,15 @@ function obtenirArticlesPaginatsCercar($usuari_id, $offset, $articles_per_pagina
 // ARTICLES COMPARTITS:
 
 function obtenirArticlesCompartits($connexio) {
-    $sql = "SELECT ac.id, ac.titol, ac.cos, u.usuari
+    $sql = "SELECT ac.id, ac.titol, ac.cos, ac.font_origen, u.usuari
             FROM articles_compartits ac
-            JOIN usuaris u ON ac.usuari_id = u.id";
+            JOIN usuaris u ON ac.usuari_id = u.id
+            ORDER BY ac.font_origen ASC";
     $stmt = $connexio->query($sql);
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+
+
 
 function comprovarArticleCompartit($article_id, $connexio) {
     $sql = "SELECT COUNT(*) FROM articles_compartits WHERE id = ?";
@@ -208,18 +218,25 @@ function compartirArticle($article_id, $usuari_id, $connexio) {
 
 
 function copiarArticle($article_id, $user_id, $connexio) {
-    // Obtenim les dades de l'article compartit
+    // Obtenemos los datos del artículo compartido
     $sql = "SELECT titol, cos FROM articles_compartits WHERE id = ?";
     $stmt = $connexio->prepare($sql);
     $stmt->execute([$article_id]);
     $article = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if ($article) {
-        $sql = "INSERT INTO articles (usuari_id, titol, cos) VALUES (?, ?, ?)";
-        $stmt = $connexio->prepare($sql);
-        $stmt->execute([$user_id, $article['titol'], $article['cos']]);
+        // Obtenemos los datos modificados del formulario (si existen)
+        $titol_modificat = isset($_POST['titol']) ? $_POST['titol'] : $article['titol'];
+        $cos_modificat = isset($_POST['cos']) ? $_POST['cos'] : $article['cos'];
+
+        // Insertamos el artículo con los datos modificados
+        return inserirArticle($titol_modificat, $cos_modificat, $user_id, $connexio);
     }
+
+    return false; // Si no encontramos el artículo
 }
+
+
 
 function verificarArticleCompartit($article_id, $connexio) {
     $sql = "SELECT COUNT(*) FROM articles_compartits WHERE article_id = ?";
@@ -227,5 +244,27 @@ function verificarArticleCompartit($article_id, $connexio) {
     $stmt->execute([$article_id]);
     return $stmt->fetchColumn() > 0; // Devuelve true si ya existe
 }
+
+function obtenirArticleCompartit($article_id, $connexio) {
+    $sql = "SELECT titol, cos FROM articles_compartits WHERE id = :article_id";
+    $stmt = $connexio->prepare($sql);
+    $stmt->bindValue(':article_id', $article_id, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+function obtenirArticlePerId($id, $connexio) {
+    $stmt = $connexio->prepare('SELECT * FROM articles WHERE id = ?');
+    $stmt->execute([$id]);
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+function inserirArticleCompartit($titol, $cos, $usuari_id, $connexio) {
+    $sql = "INSERT INTO articles_compartits (usuari_id, titol, cos, data_compartit, font_origen) VALUES (?, ?, ?, NOW(), 'qr')";
+    $stmt = $connexio->prepare($sql);
+    return $stmt->execute([$usuari_id, $titol, $cos]);
+}
+
+
 
 ?>

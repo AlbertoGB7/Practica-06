@@ -60,6 +60,8 @@ $basePath = (strpos($_SERVER['SCRIPT_NAME'], 'Controlador/') !== false) ? '../Vi
       <?php endif; ?>
       <!-- Nova opció articles compartits -->
       <li><a class="dropdown-item" href="<?= $basePath ?>vistaAjax.php">Articles compartits</a></li>
+      <li><a class="dropdown-item" href="<?= $basePath ?>lectura_qr.php">Lectura QR</a></li>
+      <li><a class="dropdown-item" href="<?= $basePath ?>lectura_api.php">Lectura API</a></li>    
       <li><hr class="dropdown-divider"></li>
       <input type="hidden" name="logout" value="1">
       <li><button class="dropdown-item" type="submit">Logout</button></li>

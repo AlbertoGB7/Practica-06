@@ -17,7 +17,7 @@ if (isset($_SESSION['usuari'])) {
 
 <head>
     <meta charset="utf-8" />
-    <title>Pràctica 4</title>
+    <title>Pràctica 6</title>
     <link rel="stylesheet" type="text/css" href="../CSS/estils.css">
 </head>
 

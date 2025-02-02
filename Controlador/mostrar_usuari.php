@@ -56,6 +56,7 @@ function mostrarTaula($resultats) {
     <th>ID</th>
     <th>Títol</th>
     <th>Cos</th>
+    <th>Accions</th>
     </tr>";
 
     foreach($resultats as $res) {
@@ -64,9 +65,17 @@ function mostrarTaula($resultats) {
         echo "<td>" . htmlspecialchars($res['titol']) . "</td>";
         echo "<td>" . htmlspecialchars($res['cos']) . "</td>";
         // Columna per al botó de compartir
-        echo "<td><a href='../Controlador/controladorAjax.php?action=compartir_article&article_id=" . $res['ID'] . "'>
-                <img src='../Imatges/qr_icon.png' alt='Compartir' style='width:24px; height:24px;'>
-              </a></td>";
+        echo "<td>
+        <button class='btn btn-secondary btn-lg dropdown-toggle mx-5 dropup' type='button' data-bs-toggle='dropdown' aria-expanded='false'>
+            <img src='../Imatges/qr_icon.png' alt='QR' style='width:24px; height:24px;'>
+        </button>
+        <ul class='dropdown-menu'>
+            <li><a class='dropdown-item' href='../Controlador/controladorAjax.php?action=compartir_article&article_id=" . $res['ID'] . "'>Compartir article</a></li>
+            <li><a class='dropdown-item' href='../qr-code/qr_generar.php?id=" . urlencode($res['ID']) . "'>Descarregar QR</a></li>
+
+        </ul>
+    </td>";
+
         echo "</tr>";
     }
     

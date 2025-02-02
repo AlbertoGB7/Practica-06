@@ -16,10 +16,47 @@ $articles_compartits = obtenirArticlesCompartits($connexio);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Articles Compartits</title>
     <link rel="stylesheet" href="../CSS/estils.css">
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Función para cargar los artículos de forma automática
+            function carregarArticles() {
+                fetch('../Controlador/controladorAjax.php?action=obtenir_articles')
+                    .then(response => {
+                        if (!response.ok) throw new Error("Error en la resposta del servidor.");
+                        return response.json();
+                    })
+                    .then(articles => {
+                        const tbody = document.querySelector(".fl-table tbody");
+                        tbody.innerHTML = ""; // Limpia el contenido actual de la tabla
+                        articles.forEach(article => {
+                            const row = document.createElement("tr");
+                            row.innerHTML = `
+                                <td>${article.usuari}</td>
+                                <td>${article.titol}</td>
+                                <td>${article.cos}</td>
+                                <td>${article.font_origen}</td>
+                                <td>
+                                    <a href="copiarAjax.php?article_id=${article.id}">
+                                        <img src="../Imatges/copiar.png" alt="Copiar" style="width:24px; height:24px;">
+                                    </a>
+                                </td>
+                            `;
+                            tbody.appendChild(row);
+                        });
+                    })
+                    .catch(error => console.error("Error carregant els articles:", error));
+            }
+
+            // Cargar los artículos automáticamente al cargar la página
+            carregarArticles();
+        });
+    </script>
+
 </head>
 <body>
     <div class="container"><br><br>
-        <h1>Articles Compartits</h1>
+    <h3 class="titol_canvi_pass">Articles Compartits</h3>
         <?php
         // Missatges d'èxit o error
         if (isset($_SESSION['missatge_exit'])) {
@@ -38,22 +75,12 @@ $articles_compartits = obtenirArticlesCompartits($connexio);
                 <th>Usuari</th>
                 <th>Títol</th>
                 <th>Cos</th>
+                <th>Font</th>
                 <th>Acció</th>
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($articles_compartits as $article): ?>
-                <tr>
-                    <td><?= htmlspecialchars($article['usuari']) ?></td>
-                    <td><?= htmlspecialchars($article['titol']) ?></td>
-                    <td><?= htmlspecialchars($article['cos']) ?></td>
-                    <td>
-                        <a href="../Controlador/controladorAjax.php?action=copiar_article&article_id=<?= $article['id'] ?>">
-                            <img src="../Imatges/copiar.png" alt="Copiar" style="width:24px; height:24px;">
-                        </a>
-                    </td>
-                </tr>
-            <?php endforeach; ?>
+
         </tbody>
     </table>
 </div>
