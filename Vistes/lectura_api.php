@@ -1,13 +1,13 @@
 <?php
-# Vistes/lectura_api.php
+# Alberto González Benítez, 2n DAW, Pràctica 06 - APIRest, Ajax i codis QR
 
 require_once '../Controlador/lectura_api_controlador.php';
 
 $controlador = new LecturaApiControlador();
 
-// Obtener datos de la API
-$clanTag = '#2VL90JP0'; // Ejemplo de tag de clan
-$playerTag = '#RJPYYL0V'; // Ejemplo de tag de jugador
+
+$clanTag = '#2VL90JP0'; // tag clan
+$playerTag = '#RJPYYL0V'; // tag player
 
 $clanInfo = $controlador->obtenerInfoClan($clanTag);
 $playerInfo = $controlador->obtenerInfoJugador($playerTag);
@@ -20,15 +20,16 @@ $playerInfo = $controlador->obtenerInfoJugador($playerTag);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Clash of Clans API</title>
     <link rel="stylesheet" href="../CSS/estils.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
     <h1>Perfil Clash of Clans</h1>
     <a href="../Vistes/index_usuari.php">
-                <button type="button" class="tornar" role="button">Anar enrere</button>
-            </a>
-    <div class="container">
-        <!-- Sección Clanes -->
-        <div class="card">
+        <button type="button" class="tornar" role="button">Anar enrere</button>
+    </a>
+
+    <div class="estil_lectura_api">
+        <div class="estil_lectura_api_clan">
             <h2>Clan</h2>
             <?php if ($clanInfo): ?>
                 <img src="<?= $clanInfo['badgeUrls']['large'] ?>" alt="Clan Badge">
@@ -40,8 +41,7 @@ $playerInfo = $controlador->obtenerInfoJugador($playerTag);
             <?php endif; ?>
         </div>
 
-        <!-- Sección Jugadores -->
-        <div class="card">
+        <div class="estil_lectura_api_jugador">
             <h2>Jugador</h2>
             <?php if ($playerInfo): ?>
                 <img src="https://api-assets.clashofclans.com/leagues/72/<?= $playerInfo['league']['id'] ?>.png" alt="Player League">

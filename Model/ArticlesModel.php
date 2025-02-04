@@ -1,5 +1,5 @@
 <?php
-# Alberto González Benítez, 2n DAW, Pràctica 04 - Inici d'usuaris i registre de sessions
+# Alberto González Benítez, 2n DAW, Pràctica 06 - APIRest, Ajax i codis QR
 
 //eliminar.php
 

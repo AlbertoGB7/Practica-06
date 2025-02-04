@@ -1,5 +1,5 @@
 <?php
-# Alberto González Benítez, 2n DAW, Pràctica 05 - Social Authentication & Miscel·lània
+# Alberto González Benítez, 2n DAW, Pràctica 06 - APIRest, Ajax i codis QR
 
 include '../Controlador/verificar_sessio.php';
 include "navbar_view.php";

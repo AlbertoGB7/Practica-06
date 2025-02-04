@@ -1,5 +1,5 @@
 <?php
-# Alberto González Benítez, 2n DAW, Pràctica 05 - Social Authentication & Miscel·lània
+# Alberto González Benítez, 2n DAW, Pràctica 06 - APIRest, Ajax i codis QR
 
 session_start();
 require_once "../Model/UsuariModel.php"; // Incloem el model d'usuaris

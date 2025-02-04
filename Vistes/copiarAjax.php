@@ -1,4 +1,5 @@
 <?php
+# Alberto González Benítez, 2n DAW, Pràctica 06 - APIRest, Ajax i codis QR
 include '../Controlador/verificar_sessio.php';
 require_once "../Model/connexio.php";
 require_once "../Model/ArticlesModel.php";

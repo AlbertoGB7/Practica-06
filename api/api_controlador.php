@@ -1,5 +1,5 @@
 <?php
-# api_controlador.php
+# Alberto González Benítez, 2n DAW, Pràctica 06 - APIRest, Ajax i codis QR
 
 require_once '../Model/ArticlesModel.php';
 

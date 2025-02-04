@@ -1,4 +1,5 @@
 <?php
+# Alberto González Benítez, 2n DAW, Pràctica 06 - APIRest, Ajax i codis QR
 # Model per a les funcions relacionades amb els usuaris
 require_once 'connexio.php';
 

@@ -1,5 +1,5 @@
 <?php
-# Alberto González Benítez, 2n DAW, Pràctica 04 - Inici d'usuaris i registre de sessions
+# Alberto González Benítez, 2n DAW, Pràctica 06 - APIRest, Ajax i codis QR
 function connectarBD($db_host = "localhost", $db_usuari = "root", $db_password = "", $db_nom = "pt05_alberto_gonzalez")
 {
     try {
