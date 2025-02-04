@@ -1,8 +1,8 @@
-# Pràctica 05 - Social Authentication & Miscel·lània - Alberto González
+# # Alberto González Benítez, 2n DAW, Pràctica 06 - APIRest, Ajax i codis QR
 
 ## Enllaç al Projecte
 
-Accedeix al projecte [aquí](https://agonzalez.cat/Practica05/):
+Accedeix al projecte [aquí](https://agonzalez.cat/Practica-06/):
 
 ## Usuari de Prova (Es admin)
 - **Usuari**: Xavi
@@ -15,94 +15,106 @@ Accedeix al projecte [aquí](https://agonzalez.cat/Practica05/):
 - **Contrasenya**: P@ssw0rd
 
 ## Descripció
-Aquest projecte és una aplicació web que permet als usuaris registrar-se i iniciar sessió. Els usuaris poden veure tots els articles creats quan no estan loguejats. Un cop inicien sessió, només poden veure els articles que ells mateixos han creat. A més, els usuaris tenen la capacitat d'inserir, modificar i eliminar els seus propis articles.
+Aquest projecte és una aplicació web que permet als usuaris gestionar articles, compartir-los mitjançant codis QR i interactuar amb una API REST. A més, inclou una integració amb l'API oficial de Clash of Clans per mostrar informació sobre clans i jugadors.
 
 ## Temàtica
 La temàtica del projecte està inspirada en el videojoc **Clash of Clans**.
 
-## Característiques
+## 🔥 Noves Funcionalitats Implementades (Part 6)
 
-- **Registre i Inici de Sessió**: Els usuaris poden registrar-se i després iniciar sessió per accedir als seus articles.
-- **Control d'Articles**: Els usuaris poden inserir, modificar i eliminar només els articles que ells han creat.
-- **Seguretat**:
-  - No es guarda la contrasenya en el formulari per motius de seguretat.
-  - La contrasenya es guarda de forma encriptada.
-  - La contrasenya ha de complir els següents requisits:
-    - Un mínim de 8 caràcters.
-    - Almenys una lletra majúscula.
-    - Almenys un número.
-    - Almenys un símbol.
-- **Missatges amb Cookies**: S'han utilitzat cookies per mostrar missatges d'èxit en iniciar i tancar sessió.
-- **Timeout de Sessió**: La sessió es tanca automàticament després de 40 minuts d'inactivitat.
-- **Paginació**: S'ha implementat un sistema de paginació per a la visualització dels articles.
-- **Selecció d'Articles per Pàgina**: Els usuaris poden escollir quants articles volen veure per pàgina (5, 10 o 15).
+### 🏷️ Articles Compartits (AJAX i Fetch Automàtic)
 
-## Noves Funcionalitats Implementades (Part 5)
+S'ha afegit una nova opció en el navbar per accedir a la secció d'Articles Compartits.
 
-### **Recuperació/Canvi de Contrasenya**
-1. **Recuperar Contrasenya**  
-   - A la pantalla de login, es pot sol·licitar una nova contrasenya introduint un correu electrònic que existeixi a la base de dades.  
-   - El sistema envia un token temporal al correu de l'usuari per validar la recuperació.  
+Aquesta vista es carrega automàticament amb un fetch AJAX, que consulta la base de dades en temps real.
 
-2. **Canviar Contrasenya**  
-   - Des de la sessió iniciada, es pot accedir al desplegable del navbar per canviar la contrasenya.  
-   - Requereix introduir la contrasenya actual i repetir la nova contrasenya dues vegades.  
+Cada article compartit té un botó de copiar, que permet editar-lo i guardar-lo en el perfil de l'usuari loguejat.
 
-### **Ordenació d'Articles**
-- S'ha implementat una funcionalitat per ordenar els articles de forma ascendent o descendent segons:
-  - Data de creació.  
-  - Ordre alfabètic.  
+#### 📂 Fitxers involucrats:
+- `Vistes/vistaAjax.php`
+- `Controlador/controladorAjax.php`
 
-### **Remember Me**
-- Opció al formulari de login per recordar la sessió de l'usuari.  
-- Es genera un token segur que permet iniciar sessió automàticament.  
+### 📥 Copiar Articles Compartits (`copiarAjax.php`)
 
-### **reCAPTCHA**
-- Després de 3 intents fallits d'inici de sessió, es mostra un **reCAPTCHA** que l'usuari ha de completar per seguir intentant logar-se.  
+Quan un usuari vol copiar un article compartit, es redirigeix a una nova vista (`copiarAjax.php`).
 
-### **Autenticació Social**
-- Es permet l'autenticació amb **Google** i **GitHub** mitjançant OAuth i HybridAuth.    
-- Els usuaris registrats amb mètodes socials no poden canviar la seva contrasenya però poden modificar altres dades del perfil.
-- El nom d'usuari d'aquests usuaris es random, el poden canviar en el seu perfil.  
+En aquesta vista, l'usuari pot modificar el contingut de l'article abans de guardar-lo al seu perfil.
 
-### **Editar Perfil Personal**
-- Des del desplegable del navbar, els usuaris poden:  
-  - Canviar el seu avatar (imatge de perfil).  
-  - Modificar el seu nom d'usuari.  
+#### 📂 Fitxers involucrats:
+- `Vistes/copiarAjax.php`
+- `Controlador/controladorAjax.php`
 
-### **Usuari Admin**
-- Els administradors tenen accés a una secció especial per gestionar usuaris:  
-  - Poden eliminar altres usuaris.  
-  - Quan s'elimina un usuari, també s'eliminen els seus articles.  
-  - **Justificació**: Els articles estan associats al perfil de l'usuari. Mantenir articles orfes podria generar inconsistències en la base de dades i confusió pels altres usuaris.  
+### 📲 Generació i Descàrrega de Codis QR
 
-### **Barra de Cerca**
-- S'ha implementat una barra de cerca funcional per buscar articles basant-se en almenys un camp de les fitxes.  
-- Les cerques realitzades s'emmagatzemen per reutilitzar-les.  
-- Opció avançada amb AJAX per mostrar resultats en temps real.  
+Cada article creat per un usuari té una opció per generar un codi QR.
 
----
+Aquest QR conté informació bàsica de l'article (titol i cos) i pot ser descarregat en format PNG.
 
-## Configuracions de Seguretat
-### **Fitxer `.htaccess`**
-S'han afegit regles per millorar la seguretat i personalització del projecte:
+#### 📂 Fitxers involucrats:
+- `qr-code/qr_generar.php`
 
-1. **Redirigir a error 301 personalitzat**  
-   - Es mostra una pàgina amb una imatge quan es produeix un error 301.  
-   ErrorDocument 301 /Imatges/error301.png
-2. **Redirigir a error 404 personalitzat**  
-   - Es mostra una pàgina amb una imatge quan es produeix un error 404.  
-   ErrorDocument 301 /Imatges/error404.png
-3. **Eliminar les www de l'URL**  
-   - Força l'ús de la URL sense www redirigint automàticament. 
-   RewriteEngine On
-   RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
-   RewriteRule ^ http://%1%{REQUEST_URI} [L,R=301]
+### 📤 Lectura de Codis QR
 
-## Gestió d'Errors
-- S'han implementat missatges d'error i èxit detallats per proporcionar una millor retroalimentació a l'usuari.
+Al navbar, s'ha afegit una opció de Lectura QR, on es pot pujar un fitxer per llegir-lo.
 
-## Navegació
-- S'ha implementat una barra de navegació (navbar) en totes les vistes que permet als usuaris tancar sessió fàcilment.
-- La barra de navegació també mostra el nom de l'usuari actualment connectat.
+Una vegada llegit, l'article es guarda automàticament a la secció d'Articles Compartits.
+
+#### 📂 Fitxers involucrats:
+- `Vistes/lectura_qr.php`
+- `Controlador/procesar_qr.php`
+
+### 🌐 Creació d'una API REST
+
+S'ha creat una API REST per gestionar articles de manera estructurada.
+
+Permet operacions CRUD (Create, Read, Update, Delete).
+
+Per fer peticions, s'ha d'usar Postman o un altre client HTTP amb una URL similar a:
+
+http://localhost/Practiques/Practica-06/api/api.php/articles
+
+(Cadascú ha d'adaptar la ruta segons on tingui el projecte.)
+
+#### 📂 Fitxers involucrats:
+- `api/api_controlador.php`
+- `api/api.php`
+
+### ⚔️ Lectura de l'API Oficial de Clash of Clans
+
+Al navbar, s'ha afegit una opció de Lectura API.
+
+Es fa una petició a l'API oficial de Clash of Clans per mostrar:
+
+- Informació d'un clan.
+- Perfil d'un jugador.
+
+⚠️ **Nota:** Aquesta funcionalitat pot donar errors si no es configura correctament la API de Clash of Clans.  
+Per poder provar-la, cal accedir a la web oficial de la **API de Clash of Clans**, afegir la **IP pública** i copiar el **token** generat. Després, cal substituir aquest token en el següent fitxer:
+- `Controlador/lectura_api_controlador.php`
+
+Si no es vol fer aquesta configuració manual, es pot veure un exemple funcional en aquesta web:  
+🔗 [https://agonzalez.cat/Practica-06/](https://agonzalez.cat/Practica-06/)
+
+#### 📂 Fitxers involucrats:
+- `Vistes/lectura_api.php`
+- `Controlador/lectura_api_controlador.php`
+
+## 🛠️ Tecnologies Utilitzades
+
+- **PHP** per la lògica del servidor.
+- **JavaScript** (AJAX, Fetch) per interaccions dinàmiques.
+- **HTML & CSS** per l'estructura i el disseny.
+- **MySQL** per l'emmagatzematge de dades.
+- **API Clash of Clans** per obtenir dades externes.
+
+## 📌 Com Utilitzar l'API
+
+1. Obrir Postman o un navegador.
+2. Fer una petició a l'URL de l'API:
+http://localhost/Practiques/Practica-06/api/api.php/articles
+3. Es poden fer operacions **GET, POST, PUT, DELETE** segons la necessitat.
+
+## 📞 Suport
+
+Qualsevol dubte: agonzalez7@sapalomera.cat 😃
 
