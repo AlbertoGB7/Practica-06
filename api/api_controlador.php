@@ -34,7 +34,7 @@ class ApiControlador {
             return ["success" => $result];
         } else {
             http_response_code(400);
-            return ["error" => "Datos incompletos"];
+            return ["error" => "Dates icompletes"];
         }
     }
 
@@ -47,7 +47,7 @@ class ApiControlador {
             return ["success" => $result];
         } else {
             http_response_code(400);
-            return ["error" => "Datos incompletos"];
+            return ["error" => "Dates icompletes"];
         }
     }
 
@@ -62,11 +62,11 @@ class ApiControlador {
                 return ["success" => $result];
             } else {
                 http_response_code(403);
-                return ["error" => "No tienes permiso para eliminar este artículo"];
+                return ["error" => "No tens permisos per eliminar aquest article"];
             }
         } else {
             http_response_code(400);
-            return ["error" => "Datos incompletos"];
+            return ["error" => "Dates icompletes"];
         }
     }
 }
