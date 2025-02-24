@@ -30,9 +30,9 @@ if (isset($_SESSION['usuari'])) {
         <div class="title">Eliminar article</div>
         <div class="subtitle">Elimina tot l'article amb el seu ID</div>
         <div class="input-container ic1">
-          <input name="id" class="input" type="text" placeholder=" " value="<?php echo isset($_SESSION['id']) ? htmlspecialchars($_SESSION['id']) : ''; ?>" />
+        <label for="id" class="label_insertar">ID</label>
+          <input name="id" id="id" class="input" type="text" placeholder=" " value="<?php echo isset($_SESSION['id']) ? htmlspecialchars($_SESSION['id']) : ''; ?>" />
           <div class="cut"></div>
-          <label for="id" class="placeholder"></label>
         </div>
           <br>
           <input type="submit" value="Buscar" class="insertar" name="buscar">

@@ -19,6 +19,7 @@ if (isset($_SESSION['usuari'])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">  
     <link rel="stylesheet" type="text/css" href="../CSS/estil_formulari.css">
+    <title>Insertar article</title>
 </head>
 <body style="background: #6868AC">   
     <form method="POST" action="../Controlador/insertar.php">
@@ -27,14 +28,14 @@ if (isset($_SESSION['usuari'])) {
             <div class="subtitle">Afegeix el teu article! Títol i Cos</div>
 
             <div class="input-container ic2">
-                <input name="titol" class="input" type="text" placeholder=" " value="<?php echo isset($_SESSION['titol']) ? htmlspecialchars($_SESSION['titol']) : ''; ?>" />
+                <label for="titol" class="label_insertar">Títol</label>
+                <input id="titol" name="titol" class="input" type="text" value="<?php echo isset($_SESSION['titol']) ? htmlspecialchars($_SESSION['titol']) : ''; ?>" />
                 <div class="cut"></div>
-                <label for="titol" class="placeholder"></label>
             </div>
             <div class="input-container ic2">
-                <input name="cos" class="input" type="text" placeholder=" " value="<?php echo isset($_SESSION['cos']) ? htmlspecialchars($_SESSION['cos']) : ''; ?>" />
+                <label for="cos" class="label_insertar">Contingut</label>
+                <input id="cos" name="cos" class="input" type="text" value="<?php echo isset($_SESSION['cos']) ? htmlspecialchars($_SESSION['cos']) : ''; ?>" />
                 <div class="cut cut-short"></div>
-                <label for="cos" class="placeholder"></label>
             </div>
             <br>
             <input type="submit" value="Insertar" class="insertar" name="insert">

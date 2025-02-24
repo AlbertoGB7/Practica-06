@@ -138,8 +138,9 @@ function mostrarPaginacio($pagina_actual, $total_pagines, $articles_per_pagina, 
                 <form method="GET" action="" class="search-box">
                     <input type="hidden" name="pagina" value="1">
                     <input type="hidden" name="articles_per_pagina" value="<?php echo $articles_per_pagina; ?>">
-                    <input type="text" class="boton-search" name="terme" placeholder="Titol..." value="<?php echo htmlspecialchars($terme_cerca); ?>">
-                    <button type="submit" class="boton-lupa"><i class="fas fa-search"></i></button>
+                    <label for="terme" class="label_cerca">Cerca per títol:</label><br>
+                    <input type="text" id="terme" class="boton-search" name="terme" placeholder="Titol..." value="<?php echo htmlspecialchars($terme_cerca); ?>">
+                    <button type="submit" class="boton-lupa" aria-label="Cercar"><i class="fas fa-search"></i></button>
                 </form>
             </div>
 

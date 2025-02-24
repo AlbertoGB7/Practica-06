@@ -57,7 +57,7 @@ $articles_compartits = obtenirArticlesCompartits($connexio);
 </head>
 <body>
     <div class="container"><br><br>
-    <h3 class="titol_canvi_pass">Articles Compartits</h3>
+    <h3 class="titol_vistaAjax">Articles Compartits</h3>
         <?php
         // Missatges d'èxit o error
         if (isset($_SESSION['missatge_exit'])) {

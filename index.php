@@ -43,15 +43,17 @@ include "Login/missatge_logout.php";
     <link rel="stylesheet" type="text/css" href="CSS/estils.css">
 </head>
 <body>
+<main>
     <form method="POST" action="../Database/connexio.php">
-        <h2>
-            <p class="titol">Selecciona una opció</p><br>
+        
+            <h1 class="titol">Selecciona una opció</h1><br>
             <input type="submit" value="Mostrar articles" class="boto" name="select" formaction="Controlador/mostrar.php">
-        </h2>
+        
     </form>
 
     <a href='Vistes/login_nou.php'>
         <button class="login" role="button">Login/Sign up</button>
     </a>
+    </main>
 </body>
 </html>

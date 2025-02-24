@@ -1,7 +1,7 @@
 <?php
 # Alberto González Benítez, 2n DAW, Pràctica 05 - Social Authentication & Miscel·lània
 
-session_start();
+
 require_once "../Model/connexio.php";
 include 'verificar_sessio.php';
 include "../Vistes/navbar_view.php";
@@ -82,13 +82,14 @@ if ($id && $field) {
         } else {
             // Formulari per modificar títol o cos
             echo "<form method='POST' action='modificar.php' class='form-modificar'>
-                    <input type='hidden' name='id' value='{$article['ID']}' />
-                    <input type='hidden' name='field' value='{$field}' />
-                    
-                    <label class='titol-chulo' for='new_value'>Nou " . ($field === 'titol' ? 'Títol' : 'Cos') . " </label><br>
-                    <textarea name='new_value' class='textarea'></textarea><br><br>
-                    <button type='submit' class='boto'>Modificar</button>
-                  </form>";
+            <input type='hidden' name='id' value='{$article['ID']}' />
+            <input type='hidden' name='field' value='{$field}' />
+            
+            <label class='titol-chulo' for='new_value'>Nou " . ($field === 'titol' ? 'Títol' : 'Cos') . " </label><br>
+            <textarea id='new_value' name='new_value' class='textarea'></textarea><br><br>
+            <button type='submit' class='boto'>Modificar</button>
+          </form>";
+    
 
             // Botó per tornar enrere
             echo "<a href='../Vistes/index_usuari.php'>

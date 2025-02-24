@@ -32,7 +32,7 @@ $playerInfo = $controlador->obtenerInfoJugador($playerTag);
         <div class="estil_lectura_api_clan">
             <h2>Clan</h2>
             <?php if ($clanInfo): ?>
-                <img src="<?= $clanInfo['badgeUrls']['large'] ?>" alt="Clan Badge">
+                <img alt="Clan Badge" src="<?= $clanInfo['badgeUrls']['large'] ?>">
                 <p><strong>Nom:</strong> <?= $clanInfo['name'] ?></p>
                 <p><strong>Nivell:</strong> <?= $clanInfo['clanLevel'] ?></p>
                 <p><strong>Membres:</strong> <?= $clanInfo['members'] ?></p>
@@ -44,7 +44,7 @@ $playerInfo = $controlador->obtenerInfoJugador($playerTag);
         <div class="estil_lectura_api_jugador">
             <h2>Jugador</h2>
             <?php if ($playerInfo): ?>
-                <img src="https://api-assets.clashofclans.com/leagues/72/<?= $playerInfo['league']['id'] ?>.png" alt="Player League">
+                <img alt="Player League" src="https://api-assets.clashofclans.com/leagues/72/<?= $playerInfo['league']['id'] ?>.png">
                 <p><strong>Nom:</strong> <?= $playerInfo['name'] ?></p>
                 <p><strong>Nivell:</strong> <?= $playerInfo['expLevel'] ?></p>
                 <p><strong>Copes:</strong> <?= $playerInfo['trophies'] ?></p>

@@ -14,10 +14,11 @@ include 'navbar_view.php';
 </head>
 <body>
     <div class="container">
-        <br><br><br><h3 class="titol_canvi_pass">Pujar QR</h3>
+        <br><br><br><h3 class="titol_vistaAjax">Pujar QR</h3>
 
         <form action="../Controlador/procesar_qr.php" method="post" enctype="multipart/form-data">
             <div class="mb-3">
+            <label for="qr_file" class="form-label">Selecciona un QR</label>
                 <input type="file" name="qr_file" id="qr_file" class="form-control" accept=".png, .jpg, .jpeg">
             </div>
             <div class="mb-3">

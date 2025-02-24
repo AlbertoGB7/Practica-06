@@ -28,14 +28,15 @@ if (isset($_SESSION['usuari'])) {
             
             <!-- Camp per introduir l'ID -->
             <div class="c-formContainer">
-                <input type="text" class="boton-id" name="id" placeholder="ID" 
+            <label for="id" class="visually-hidden">ID</label>
+                <input type="text" id="id" class="boton-id" name="id" placeholder="ID" 
                        value="<?php echo isset($_SESSION['id']) ? htmlspecialchars($_SESSION['id']) : ''; ?>" />
             </div>
             <br>
 
             <!-- Switch per Títol -->
             <div class="checkbox-wrapper-22">
-                <label class="switch" for="check-titol">
+                <label class="switch" for="check-titol">titol
                     <input type="radio" id="check-titol" name="field" value="titol" required>
                     <div class="slider round"></div>
                 </label>
@@ -45,7 +46,7 @@ if (isset($_SESSION['usuari'])) {
 
             <!-- Switch per Cos -->
             <div class="checkbox-wrapper-22">
-                <label class="switch" for="check-cos">
+                <label class="switch" for="check-cos">cos
                     <input type="radio" id="check-cos" name="field" value="cos" required>
                     <div class="slider round"></div>
                 </label>
